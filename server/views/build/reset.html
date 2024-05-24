@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reset Password</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: rgba(0, 0, 0, 0.2);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            text-align: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .card {
+            background-color: rgba(0, 0, 0, 0.7);;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 300px;
+            color:white
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .showBtn {
+            display: inline-block;
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+            border-radius: 5px;
+            padding: 10px 20px;
+            background-color: rgba(1, 116, 210, 0.971);
+            color: white;
+            margin-top: 10px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <form id="resetForm">
+            <div class="form-group">
+                <label for="newPassword">New Password</label>
+                <input type="password" id="newPassword" required>
+            </div>
+            <div class="form-group">
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" id="confirmPassword" required>
+            </div>
+            <button type="submit" class="showBtn">Update Password</button>
+        </form>
+    </div>
+
+    <script>
+        // JavaScript to handle the form submission if necessary
+        const resetForm = document.getElementById('resetForm');
+        const newPassword = document.getElementById('newPassword');
+        const confirmPassword = document.getElementById('confirmPassword');
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const token = urlParams.get('token');
+
+        if (!token) {
+            alert('Invalid token');
+        } else {
+            resetForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                if (newPassword.value !== confirmPassword.value) {
+                    alert('Passwords do not match');
+                } else {
+                    const response = await fetch('http://localhost:3000/api/reset', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            token,
+                            password: newPassword.value
+                        })
+                    });
+                    const data = await response.json();
+                    if (data.success) {
+                        alert('Password updated successfully');
+                        window.location.href = 'http://localhost:3000/login';
+                    } else {
+                        alert(data.message);
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>

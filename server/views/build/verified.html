@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Verification</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: rgba(0, 0, 0, 0.2);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            text-align: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .card {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+
+        .success {
+            color: green;
+        }
+
+        .error {
+            color: red;
+        }
+
+        .hideBtn {
+            display: none;
+        }
+
+        .showBtn {
+            display: flex;
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+            border-radius: 5px;
+            padding: 10px;
+            background-color: rgba(1, 116, 210, 0.971);
+            color: white;
+            margin-top: 10px;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <div class="icon">
+            <span id="statusIcon" class=""></span>
+        </div>
+        <div id="statusMessage" class=""></div>
+        <a href="http://localhost:3000/login" id="btn" class="hideBtn">Login</a>
+    </div>
+
+    <script>
+        // Get the message parameter from the URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const message = urlParams.get('message');
+        const status = urlParams.get('status');
+
+        // Get the card, status icon, status message elements, and button
+        const card = document.querySelector('.card');
+        const statusIcon = document.getElementById('statusIcon');
+        const statusMessage = document.getElementById('statusMessage');
+        const btn = document.getElementById('btn');
+
+        // Display the appropriate content and set background color based on the status parameter
+        if (status === 'success') {
+            statusIcon.innerHTML = '✔️';
+            statusMessage.textContent = message;
+            card.classList.add('success');
+            statusIcon.classList.add('success');
+            statusMessage.classList.add('success');
+            btn.classList.remove('hideBtn');
+            btn.classList.add('showBtn');
+        }
+        // } else if (status === 'error') {
+        //     statusIcon.innerHTML = '❌';
+        //     statusMessage.textContent = 'Email is already verified.';
+        //     card.classList.add('error');
+        //     statusIcon.classList.add('error');
+        //     statusMessage.classList.add('error');
+        //     btn.classList.add('hideBtn');
+        // } 
+        else {
+            statusIcon.innerHTML = '❓';
+            statusMessage.textContent = 'Email is already verified OR  link has expired.';
+            card.classList.add('error');
+            statusIcon.classList.add('error');
+            statusMessage.classList.add('error');
+            btn.classList.add('hideBtn');
+        }
+    </script>
+
+</body>
+</html>
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Verification</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: rgba(0, 0, 0, 0.2);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            text-align: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .card {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+
+        .success {
+            color: green;
+        }
+
+        .error {
+            color: red;
+        }
+
+        .hideBtn {
+            display: none;
+        }
+
+        .showBtn {
+            display: flex;
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+            border-radius: 5px;
+            padding: 10px;
+            background-color: rgba(1, 116, 210, 0.971);
+            color: white;
+            margin-top: 10px;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <div class="icon">
+            <span id="statusIcon" class=""></span>
+        </div>
+        <div id="statusMessage" class="">
+        </div>
+        <a href="http://localhost:3000/login" id="btn" class="hideBtn">Login</a>
+    </div>
+
+    <script>
+        // Get the message parameter from the URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const message = urlParams.get('message');
+        const status = urlParams.get('status');
+
+        // Get the card, status icon, status message elements, and button
+        const card = document.querySelector('.card');
+        const statusIcon = document.getElementById('statusIcon');
+        const statusMessage = document.getElementById('statusMessage');
+        const btn = document.getElementById('btn');
+
+        // Display the appropriate content and set background color based on the status parameter
+        if (status === 'success') {
+            statusIcon.innerHTML = '✔️';
+            statusMessage.textContent = message;
+            card.classList.add('success');
+            statusIcon.classList.add('success');
+            statusMessage.classList.add('success');
+            btn.classList.remove('hideBtn');
+            btn.classList.add('showBtn');
+        } else if (status === 'error') {
+            statusIcon.innerHTML = '❌';
+            statusMessage.textContent = message || 'Email is already verified.';
+            card.classList.add('error');
+            statusIcon.classList.add('error');
+            statusMessage.classList.add('error');
+            btn.classList.remove('hideBtn');
+            btn.classList.add('showBtn');
+        } else {
+            statusIcon.innerHTML = '❓';
+            statusMessage.textContent = message || 'Unknown status.';
+            card.classList.add('error');
+            statusIcon.classList.add('error');
+            statusMessage.classList.add('error');
+            btn.classList.add('hideBtn');
+        }
+    </script>
+
+</body>
+</html> -->
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Verification & Password Reset</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: rgba(0, 0, 0, 0.2);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            text-align: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .card {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 300px;
+        }
+
+        .icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+
+        .success {
+            color: green;
+        }
+
+        .error {
+            color: red;
+        }
+
+        .hideBtn {
+            display: none;
+        }
+
+        .showBtn {
+            display: inline-block;
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+            border-radius: 5px;
+            padding: 10px 20px;
+            background-color: rgba(1,116,210, 0.971);
+            color: white;
+            margin-top: 10px;
+            text-decoration: none;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .showForm {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="icon">
+            <span id="statusIcon" class=""></span>
+        </div>
+        <div id="statusMessage" class=""></div>
+        <form id="resetForm" class="hideBtn">
+            <div class="form-group">
+                <label for="newPassword">New Password</label>
+                <input type="password" id="newPassword" required>
+            </div>
+            <div class="form-group">
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" id="confirmPassword" required>
+            </div>
+            <button type="submit" class="showBtn">Update Password</button>
+        </form>
+        <a href="http://localhost:3000/login" id="btn" class="hideBtn">Login</a>
+    </div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const message = urlParams.get('message');
+        const status = urlParams.get('status');
+        const action = urlParams.get('action');
+        const userId = urlParams.get('userId');
+        const token = urlParams.get('token');
+
+        const card = document.querySelector('.card');
+        const statusIcon = document.getElementById('statusIcon');
+        const statusMessage = document.getElementById('statusMessage');
+        const btn = document.getElementById('btn');
+        const resetForm = document.getElementById('resetForm');
+        
+        if (action === 'verify') {
+            if (status === 'success') {
+                statusIcon.innerHTML = '✔️';
+                statusMessage.textContent = message || 'Email verification successful!';
+                card.classList.add('success');
+                statusIcon.classList.add('success');
+                statusMessage.classList.add('success');
+                btn.classList.add('showBtn');
+                btn.textContent = 'Login';
+            } else {
+                statusIcon.innerHTML = '❌';
+                statusMessage.textContent = message || 'Email verification failed.';
+                card.classList.add('error');
+                statusIcon.classList.add('error');
+                statusMessage.classList.add('error');
+                btn.classList.add('showBtn');
+                btn.textContent = 'Retry';
+            }
+        } else if (action === 'reset') {
+            if (status === 'success') {
+                statusIcon.innerHTML = '✔️';
+                statusMessage.textContent = message || 'Please enter your new password.';
+                card.classList.add('success');
+                statusIcon.classList.add('success');
+                statusMessage.classList.add('success');
+                resetForm.classList.add('showForm');
+                resetForm.classList.remove('hideBtn');
+                
+                resetForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const newPassword = document.getElementById('newPassword').value;
+                    const confirmPassword = document.getElementById('confirmPassword').value;
+
+                    if (newPassword === confirmPassword) {
+                        const response = await fetch('http://localhost:3000/reset-password', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({ userId, token, newPassword })
+                        });
+                        const result = await response.json();
+                        
+                        if (result.success) {
+                            statusMessage.textContent = 'Password updated successfully!';
+                            resetForm.classList.add('hideBtn');
+                            btn.classList.add('showBtn');
+                            btn.textContent = 'Login';
+                        } else {
+                            statusMessage.textContent = result.message || 'Password update failed.';
+                        }
+                    } else {
+                        statusMessage.textContent = 'Passwords do not match.';
+                    }
+                });
+            } else {
+                statusIcon.innerHTML = '❌';
+                statusMessage.textContent = message || 'Password reset request failed.';
+                card.classList.add('error');
+                statusIcon.classList.add('error');
+                statusMessage.classList.add('error');
+                btn.classList.add('showBtn');
+                btn.textContent = 'Retry';
+            }
+        } else {
+            statusIcon.innerHTML = '❓';
+            statusMessage.textContent = message || 'Unknown request.';
+            card.classList.add('error');
+            statusIcon.classList.add('error');
+            statusMessage.classList.add('error');
+            btn.classList.add('hideBtn');
+        }
+    </script>
+</body>
+</html> -->
