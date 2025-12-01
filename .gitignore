@@ -1,0 +1,38 @@
+# ================================
+# Root ignores
+# ================================
+node_modules/
+.vscode/
+.env
+.env.local
+*.log
+
+# ================================
+# Client ignores
+# ================================
+client/node_modules/
+client/.env
+client/.env.local
+client/.DS_Store
+client/dist/
+client/build/
+
+# ================================
+# Server ignores
+# ================================
+server/node_modules/
+server/.env
+server/.env.local
+server/.DS_Store
+server/dist/
+server/build/
+
+# ================================
+# OS / Editor / Misc
+# ================================
+.DS_Store
+Thumbs.db
+
+# npm / yarn / pnpm debugging files
+npm-debug.log*
+
